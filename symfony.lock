@@ -89,6 +89,9 @@
     "swiftmailer/swiftmailer": {
         "version": "v6.2.3"
     },
+    "symfony/asset": {
+        "version": "v4.4.10"
+    },
     "symfony/cache": {
         "version": "v4.4.10"
     },
@@ -274,6 +277,12 @@
             "./config/routes.yaml"
         ]
     },
+    "symfony/security-core": {
+        "version": "v5.1.2"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.4.10"
+    },
     "symfony/string": {
         "version": "v5.1.2"
     },
@@ -304,6 +313,26 @@
             "./translations/.gitignore"
         ]
     },
+    "symfony/twig-bridge": {
+        "version": "v4.4.10"
+    },
+    "symfony/twig-bundle": {
+        "version": "4.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.4",
+            "ref": "15a41bbd66a1323d09824a189b485c126bbefa51"
+        },
+        "files": [
+            "./config/packages/test/twig.yaml",
+            "./config/packages/twig.yaml",
+            "./templates/base.html.twig"
+        ]
+    },
+    "symfony/twig-pack": {
+        "version": "v1.0.0"
+    },
     "symfony/validator": {
         "version": "4.3",
         "recipe": {
@@ -325,5 +354,11 @@
     },
     "symfony/yaml": {
         "version": "v4.4.10"
+    },
+    "twig/extra-bundle": {
+        "version": "v3.0.3"
+    },
+    "twig/twig": {
+        "version": "v3.0.3"
     }
 }
