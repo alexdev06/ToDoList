@@ -17,10 +17,10 @@ doctrine:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
-        mappings:
-            AppBundle:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/AppBundle/Entity'
-                prefix: 'AppBundle\Entity'
-                alias: AppBundle
+        # mappings:
+        #     AppBundle:
+        #         is_bundle: false
+        #         type: annotation
+        #         dir: '%kernel.project_dir%/src/AppBundle/Entity'
+        #         prefix: 'AppBundle\Entity'
+        #         alias: AppBundle
