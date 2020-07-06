@@ -26,7 +26,7 @@ security:
                 default_target_path:  /
 
             logout: ~
-            logout_on_user_change: true
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
