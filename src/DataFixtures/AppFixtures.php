@@ -27,14 +27,25 @@ class AppFixtures extends Fixture
             $user->setUsername($faker->userName);
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
-            $manager->persist($user);
-        }
+            $role = mt_rand(1, 2);
+            // To set user with ROLE_ADMIN
+            if ($role == 1) {
+                $user->setRoles('ROLE_ADMIN');
+            }
 
-        for ($i = 0; $i < 20; $i++) {
-            $task = new Task();
-            $task->setTitle($faker->sentence());
-            $task->setContent($faker->paragraph());
-            $manager->persist($task);
+            $manager->persist($user);
+
+            for ($j = 0; $j < 5; $j++) {
+                $task = new Task();
+                $task->setTitle($faker->sentence());
+                $task->setContent($faker->paragraph());
+                $anonyme = mt_rand(1,2);
+                // To link task with an user
+                if ($anonyme == 1) {
+                    $task->setUser($user);
+                }
+                $manager->persist($task);
+            }
         }
 
         $manager->flush();
