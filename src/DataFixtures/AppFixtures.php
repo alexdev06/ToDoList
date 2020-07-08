@@ -28,6 +28,7 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
             $role = mt_rand(1, 2);
+            // To set user with ROLE_ADMIN
             if ($role == 1) {
                 $user->setRoles('ROLE_ADMIN');
             }
@@ -38,7 +39,11 @@ class AppFixtures extends Fixture
                 $task = new Task();
                 $task->setTitle($faker->sentence());
                 $task->setContent($faker->paragraph());
-                $task->setUser($user);
+                $anonyme = mt_rand(1,2);
+                // To link task with an user
+                if ($anonyme == 1) {
+                    $task->setUser($user);
+                }
                 $manager->persist($task);
             }
         }
