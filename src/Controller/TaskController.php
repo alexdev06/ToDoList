@@ -26,14 +26,12 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $task->setUser($this->getUser());
             $em->persist($task);
             $em->flush();
-
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
             return $this->redirectToRoute('task_list');
