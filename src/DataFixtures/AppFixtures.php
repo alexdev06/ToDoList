@@ -28,9 +28,11 @@ class AppFixtures extends Fixture
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
             $role = mt_rand(1, 2);
-            // To set user with ROLE_ADMIN
+            // To set user with ROLE_ADMIN or with ROLE_USER
             if ($role == 1) {
-                $user->setRoles('ROLE_ADMIN');
+                $user->setRoles(['ROLE_ADMIN']);
+            } else {
+                $user->setRoles(['ROLE_USER']);
             }
 
             $manager->persist($user);
