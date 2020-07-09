@@ -46,6 +46,7 @@ class AppFixtures extends Fixture
                 if ($anonyme == 1) {
                     $task->setUser($user);
                 }
+                
                 $manager->persist($task);
             }
         }
