@@ -39,7 +39,13 @@
         <div class="container">
             <div class="row">
                 <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
-
+                {% if is_granted('ROLE_ADMIN') %}
+                    {% set userlist = path('user_list') %}
+                    {% set actualpath = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params'))%}
+                    {% if userlist != actualpath %}
+                        <a href="{{ path('user_list') }}" class="btn btn-primary">Gestion des utilisateurs</a>
+                    {% endif %}
+                {% endif %}
                 {% if app.user %}
                 <a href="{{ path('logout') }}" class="pull-right btn btn-danger">Se déconnecter</a>
                 {% endif %}
