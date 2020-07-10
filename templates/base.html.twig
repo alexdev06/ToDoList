@@ -38,7 +38,9 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
+                {% if not app.user %}
                 <a href="{{ path('user_create') }}" class="btn btn-primary">Créer un utilisateur</a>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     {% set userlist = path('user_list') %}
                     {% set actualpath = path(app.request.attributes.get('_route'),app.request.attributes.get('_route_params'))%}
