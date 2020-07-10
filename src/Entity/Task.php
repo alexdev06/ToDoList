@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table
+ * @ORM\Table("task")
+ * @UniqueEntity("title", message="Titre du message déjà pris, choisissez en un autre.")
  */
 class Task
 {
