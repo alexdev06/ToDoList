@@ -13,6 +13,16 @@
                         {% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}
                     </h4>
                     <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
+                    <p>
+                        Créée le 
+                        {{ task.createdAt | date('d/m/Y à H:i') }}
+                        par 
+                        {% if task.user != null %}
+                            {{ task.user.username }}
+                        {% else %}
+                            {{ 'anonyme' }}
+                        {% endif %}
+                    </p>
                     <p>{{ task.content }}</p>
                 </div>
                 <div>
