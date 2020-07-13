@@ -29,16 +29,13 @@ class UserController extends AbstractController
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $em->persist($user);
             $em->flush();
-
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('homepage');
@@ -54,15 +51,12 @@ class UserController extends AbstractController
     public function editAction(User $user, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
     {
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-
             $em->flush();
-
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
             return $this->redirectToRoute('user_list');
