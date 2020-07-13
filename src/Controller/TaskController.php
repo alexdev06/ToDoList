@@ -21,6 +21,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * @Route("/tasks/done", name="task_done_list")
+     */
+    public function listDoneAction()
+    {
+        return $this->render('task/listDone.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => true], [])]);
+    }
+
+    /**
      * @Route("/tasks/create", name="task_create")
      */
     public function createAction(Request $request, EntityManagerInterface $em)
@@ -71,8 +79,12 @@ class TaskController extends AbstractController
     {
         $task->toggle(!$task->isDone());
         $em->flush();
-
-        $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        
+        if ($task->isDone() == true) {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        } else {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle()));
+        }
 
         return $this->redirectToRoute('task_list');
     }
