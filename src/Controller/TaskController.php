@@ -14,6 +14,7 @@ class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks", name="task_list")
+     * @IsGranted("ROLE_USER")
      */
     public function listAction()
     {
@@ -22,6 +23,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/done", name="task_done_list")
+     * @IsGranted("ROLE_USER")
      */
     public function listDoneAction()
     {
@@ -30,6 +32,7 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/create", name="task_create")
+     * @IsGranted("ROLE_USER")
      */
     public function createAction(Request $request, EntityManagerInterface $em)
     {
@@ -51,29 +54,26 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
+     * @IsGranted("ROLE_USER")
      */
     public function editAction(Task $task, Request $request, EntityManagerInterface $em)
     {
         $form = $this->createForm(TaskType::class, $task);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
             return $this->redirectToRoute('task_list');
         }
 
-        return $this->render('task/edit.html.twig', [
-            'form' => $form->createView(),
-            'task' => $task,
-        ]);
+        return $this->render('task/edit.html.twig', ['form' => $form->createView(), 'task' => $task]);
     }
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     * @IsGranted("ROLE_USER")
      */
     public function toggleTaskAction(Task $task, EntityManagerInterface $em)
     {
