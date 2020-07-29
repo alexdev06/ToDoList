@@ -5,8 +5,8 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Task;
 use App\Entity\User;
+use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -22,8 +22,41 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('fr-FR');
 
-        for ($i = 0; $i < 10; $i++) {
-            $user = new User;
+        // Admin role
+        $user = new User();
+        $user->setUsername('alex06');
+        $user->setEmail('alex06@gmail.com');
+        $user->setPassword($this->encoder->encodePassword($user, 'password'));
+        $user->setRoles(['ROLE_ADMIN']);
+        $manager->persist($user);
+
+        for ($a = 0; $a < 3; $a++) {
+            $task = new Task();
+            $task->setTitle($faker->sentence());
+            $task->setContent($faker->paragraph());
+            $task->setUser($user);
+            $manager->persist($task);
+        }
+
+        // User role
+        $user = new User();
+        $user->setUsername('ludo06');
+        $user->setEmail('ludo06@gmail.com');
+        $user->setPassword($this->encoder->encodePassword($user, 'password'));
+        $user->setRoles(['ROLE_USER']);
+        $manager->persist($user);
+
+        for ($b = 0; $b < 3; $b++) {
+            $task = new Task();
+            $task->setTitle($faker->sentence());
+            $task->setContent($faker->paragraph());
+            $task->setUser($user);
+            $manager->persist($task);
+        }
+
+        // Other differents users with tasks
+        for ($i = 0; $i < 5; $i++) {
+            $user = new User();
             $user->setUsername($faker->userName);
             $user->setEmail($faker->email);
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
@@ -37,7 +70,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
 
-            for ($j = 0; $j < 5; $j++) {
+            for ($j = 0; $j < 3; $j++) {
                 $task = new Task();
                 $task->setTitle($faker->sentence());
                 $task->setContent($faker->paragraph());
@@ -51,6 +84,12 @@ class AppFixtures extends Fixture
             }
         }
 
+        // Anonymous task
+        $task = new Task();
+        $task->setTitle('titre');
+        $task->setContent($faker->paragraph());
+        $manager->persist($task);
+        
         $manager->flush();
     }
 }
