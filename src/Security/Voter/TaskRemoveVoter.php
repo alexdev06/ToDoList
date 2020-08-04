@@ -15,6 +15,7 @@ class TaskRemoveVoter extends Voter
     {
         $this->security = $security;
     }
+    
     protected function supports($attribute, $subject)
     {
         return $attribute === 'REMOVE'
