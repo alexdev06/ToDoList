@@ -25,7 +25,7 @@ class UserController extends AbstractController
     /**
      * @Route("/users/create", name="user_create")
      */
-    public function createAction(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
+    public function createAction(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -34,8 +34,8 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            $em->persist($user);
-            $em->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('homepage');
@@ -48,7 +48,7 @@ class UserController extends AbstractController
      * @Route("/users/{id}/edit", name="user_edit")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $em)
+    public function editAction(User $user, Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -56,7 +56,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', "L'utilisateur a bien été modifié");
 
             return $this->redirectToRoute('user_list');

@@ -35,7 +35,7 @@
                     </form>
                     {% if is_granted('REMOVE', task) %}
                     <form action="{{ path('task_delete', {'id' : task.id }) }}">
-                        <button class="btn btn-danger btn-sm pull-right">Supprimer</button>
+                        <button class="btn btn-danger btn-sm pull-right" onclick="var aze=confirm('Êtes-vous sûr de vouloir supprimer la tâche?');return aze;">Supprimer</button>
                     </form>
                     {% endif %}
                 </div>

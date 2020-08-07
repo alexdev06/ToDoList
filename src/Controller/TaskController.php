@@ -34,7 +34,7 @@ class TaskController extends AbstractController
      * @Route("/tasks/create", name="task_create")
      * @IsGranted("ROLE_USER")
      */
-    public function createAction(Request $request, EntityManagerInterface $em)
+    public function createAction(Request $request, EntityManagerInterface $entityManager)
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -42,8 +42,8 @@ class TaskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $task->setUser($this->getUser());
-            $em->persist($task);
-            $em->flush();
+            $entityManager->persist($task);
+            $entityManager->flush();
             $this->addFlash('success', 'La tâche a été bien été ajoutée.');
 
             return $this->redirectToRoute('task_list');
@@ -56,13 +56,13 @@ class TaskController extends AbstractController
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function editAction(Task $task, Request $request, EntityManagerInterface $em)
+    public function editAction(Task $task, Request $request, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+            $entityManager->flush();
             $this->addFlash('success', 'La tâche a bien été modifiée.');
 
             return $this->redirectToRoute('task_list');
@@ -75,15 +75,15 @@ class TaskController extends AbstractController
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      * @IsGranted("ROLE_USER")
      */
-    public function toggleTaskAction(Task $task, EntityManagerInterface $em)
+    public function toggleTaskAction(Task $task, EntityManagerInterface $entityManager)
     {
         $task->toggle(!$task->isDone());
-        $em->flush();
+        $entityManager->flush();
         
         if ($task->isDone() == true) {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme "Terminée".', $task->getTitle()));
         } else {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle()));
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme "A faire".', $task->getTitle()));
         }
 
         return $this->redirectToRoute('task_list');
@@ -93,10 +93,10 @@ class TaskController extends AbstractController
      * @Route("/tasks/{id}/delete", name="task_delete")
      * @IsGranted("REMOVE", subject="task")
      */
-    public function deleteTaskAction(Task $task, EntityManagerInterface $em)
+    public function deleteTaskAction(Task $task, EntityManagerInterface $entityManager)
     {
-        $em->remove($task);
-        $em->flush();
+        $entityManager->remove($task);
+        $entityManager->flush();
         $this->addFlash('success', 'La tâche a bien été supprimée.');
 
         return $this->redirectToRoute('task_list');
