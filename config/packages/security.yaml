@@ -22,6 +22,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login_check
+                csrf_token_generator: security.csrf.token_manager
                 always_use_default_target_path:  false
                 default_target_path:  /
 
