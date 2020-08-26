@@ -62,8 +62,8 @@ class UserControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'ludo06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $userRepo = $em->getRepository(User::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepo = $entityManager->getRepository(User::class);
         $user = $userRepo->findOneBy(['username' => 'alex06']);
         $userId = $user->getId();
         $client->request('GET', "/users/$userId/edit");
@@ -76,8 +76,8 @@ class UserControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $userRepo = $em->getRepository(User::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepo = $entityManager->getRepository(User::class);
         $user = $userRepo->findOneBy(['username' => 'ludo06']);
         $userId = $user->getId();
         $crawler = $client->request('GET', "/users/$userId/edit");
@@ -98,8 +98,8 @@ class UserControllerTest extends WebTestCase
     public function testNotLoggedEditUser()
     {
         $client = static::createClient();
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $userRepo = $em->getRepository(User::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $userRepo = $entityManager->getRepository(User::class);
         $user = $userRepo->findOneBy(['username' => 'alex06']);
         $userId = $user->getId();
         $client->request('GET', "/users/$userId/edit");

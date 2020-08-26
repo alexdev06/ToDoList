@@ -93,9 +93,9 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'ludo06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskrepo = $em->getRepository(Task::class);
-        $userRepo = $em->getRepository(User::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskrepo = $entityManager->getRepository(Task::class);
+        $userRepo = $entityManager->getRepository(User::class);
         $user = $userRepo->findOneBy(['username' => 'ludo06']);
         $task = $taskrepo->findOneBy(['user' => $user])->getId();
         $client->request('GET', '/tasks/'.$task.'/delete'); 
@@ -111,9 +111,9 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskrepo = $em->getRepository(Task::class);
-        $userRepo = $em->getRepository(User::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskrepo = $entityManager->getRepository(Task::class);
+        $userRepo = $entityManager->getRepository(User::class);
         $user = $userRepo->findOneBy(['username' => 'ludo06']);
         $task = $taskrepo->findOneBy(['user' => $user])->getId();
         $client->request('GET', "/tasks/$task/delete"); 
@@ -126,8 +126,8 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskrepo = $em->getRepository(Task::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskrepo = $entityManager->getRepository(Task::class);
         $taskanno = $taskrepo->findOneBy(['user' => null])->getId();
         $client->request('GET', '/tasks/'.$taskanno.'/delete'); 
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
@@ -142,8 +142,8 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'ludo06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskrepo = $em->getRepository(Task::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskrepo = $entityManager->getRepository(Task::class);
         $taskanno = $taskrepo->findOneBy(['user' => null])->getId();
         $client->request('GET', '/tasks/'.$taskanno.'/delete');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN); 
@@ -166,8 +166,8 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
             ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskRepo = $em->getRepository(Task::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepo = $entityManager->getRepository(Task::class);
         $taskId = $taskRepo->findOneBy(['user' => null])->getId();
         $crawler = $client->request('GET', "/tasks/$taskId/edit");
         $form = $crawler->selectButton('Modifier')->form([
@@ -197,8 +197,8 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
             ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskRepo = $em->getRepository(Task::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepo = $entityManager->getRepository(Task::class);
         $taskId = $taskRepo->findOneBy(['isDone' => false])->getId();
         $client->request('GET', "/tasks/$taskId/toggle");
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
@@ -213,8 +213,8 @@ class TaskControllerTest extends WebTestCase
             'PHP_AUTH_USER' => 'alex06',
             'PHP_AUTH_PW'   => 'password'
         ]);
-        $em = $client->getContainer()->get('doctrine')->getManager();
-        $taskRepo = $em->getRepository(Task::class);
+        $entityManager = $client->getContainer()->get('doctrine')->getManager();
+        $taskRepo = $entityManager->getRepository(Task::class);
         $taskId = $taskRepo->findOneBy(['isDone' => true])->getId();
         $client->request('GET', "/tasks/$taskId/toggle");
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
