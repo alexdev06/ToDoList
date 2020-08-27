@@ -1,5 +1,8 @@
 # ToDoList - Application de gestion des tâches quotidiennes
 *Projet 8 du parcours "Développeur d'applications PHP/Symfony", formation OpenClassrooms*<br />
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8f0aa6a34d634c339fbf6403bf04e9e9)](https://www.codacy.com/manual/alexdev06/ToDoList?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alexdev06/ToDoList&amp;utm_campaign=Badge_Grade)<br>
+
 Lien vers l'application <https://todolist.alexandremanteaux.fr>
 
 ## Bibliothèques notables utilisées :
