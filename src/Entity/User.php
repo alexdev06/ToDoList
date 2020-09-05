@@ -37,7 +37,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Vous devez saisir un mot de passe.")
      */
     private $password;
