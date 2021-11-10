@@ -5,6 +5,69 @@
 
 Lien vers l'application <https://todolist.alexandremanteaux.fr>
 
+## Description du besoin:
+### Corrections d'anomalies
+Une tâche doit être attachée à un utilisateur
+Actuellement, lorsqu’une tâche est créée, elle n’est pas rattachée à un utilisateur. Il vous est demandé d’apporter les corrections nécessaires afin qu’automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créée.
+
+Lors de la modification de la tâche, l’auteur ne peut pas être modifié.
+
+Pour les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur “anonyme”.
+
+Choisir un rôle pour un utilisateur
+Lors de la création d’un utilisateur, il doit être possible de choisir un rôle pour celui-ci. Les rôles listés sont les suivants :
+
+rôle utilisateur (ROLE_USER) ;
+rôle administrateur (ROLE_ADMIN).
+Lors de la modification d’un utilisateur, il est également possible de changer le rôle d’un utilisateur.
+
+### Implémentation de nouvelles fonctionnalités
+Autorisation
+Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
+
+Les tâches ne peuvent être supprimées que par les utilisateurs ayant créé les tâches en question.
+
+Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
+
+Implémentation de tests automatisés
+Il vous est demandé d’implémenter les tests automatisés (tests unitaires et fonctionnels) nécessaires pour assurer que le fonctionnement de l’application est bien en adéquation avec les demandes.
+
+Ces tests doivent être implémentés avec PHPUnit ; vous pouvez aussi utiliser Behat pour la partie fonctionnelle.
+
+Vous prévoirez des données de tests afin de pouvoir prouver le fonctionnement dans les cas explicités dans ce document.
+
+Il vous est demandé de fournir un rapport de couverture de code au terme du projet. Il faut que le taux de couverture soit supérieur à 70 %.
+
+### Documentation technique
+Il vous est demandé de produire une documentation expliquant comment l’implémentation de l'authentification a été faite. Cette documentation se destine aux prochains développeurs juniors qui rejoindront l’équipe dans quelques semaines. Dans cette documentation, il doit être possible pour un débutant avec le framework Symfony de :
+
+comprendre quel(s) fichier(s) il faut modifier et pourquoi ;
+comment s’opère l’authentification ;
+et où sont stockés les utilisateurs.
+S’il vous semble important de mentionner d’autres informations , n’hésitez pas à le faire.
+
+Par ailleurs, vous ouvrez la marche en matière de collaboration à plusieurs sur ce projet. Il vous est également demandé de produire un document expliquant comment devront procéder tous les développeurs souhaitant apporter des modifications au projet.
+
+Ce document devra aussi détailler le processus de qualité à utiliser ainsi que les règles à respecter.
+
+### Audit de qualité du code & performance de l'application
+Les fondateurs souhaitent pérenniser le développement de l’application. Cela dit, ils souhaitent dans un premier temps faire un état des lieux de la dette technique de l’application.
+
+Au terme de votre travail effectué sur l’application, il vous est demandé de produire un audit de code sur les deux axes suivants : la qualité de code et la performance.
+
+Bien évidemment, il vous est fortement conseillé d’utiliser des outils vous permettant d’avoir des métriques pour appuyer vos propos.
+
+Concernant l’audit de performance, l’usage de Blackfire est obligatoire. Ce dernier vous permettra de produire des analyses précises et adaptées aux évolutions futures du projet.
+
+### Livrables
+* Les instructions pour installer le projet (dans un fichier README à la racine du projet)
+* Les issues sur le repository GitHub
+* L’ensemble des fichiers HTML générés par PHPUnit indiquant le niveau de code coverage de l’application (un minimum de 70 %)
+* Dans un dossier docs à la racine du projet:
+  * Documentation technique concernant l’implémentation de l’authentification (fichier au format PDF)
+  * Document expliquant comment contribuer au projet (fichier markdown “.md”)
+  * Le rapport d’audit de qualité de code et de performance (fichier au format PDF)
+
 ## Bibliothèques notables utilisées :
 - Symfony lts 4.4.10
 - fzaninotto/faker 1.9.1
